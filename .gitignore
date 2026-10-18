@@ -1,0 +1,36 @@
+# ── Configuration personnelle (contient votre e-mail) ──
+# Ne JAMAIS commiter ce fichier. Copiez config.example.json pour démarrer.
+config.json
+
+# ── PDF téléchargés (peuvent être volumineux) ──
+pdfs/
+pdfs_telecharges/
+*.pdf
+
+# ── Python : cache et builds ──
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+dist/
+build/
+*.egg-info/
+src/*.egg-info/
+
+# ── Environnements virtuels ──
+venv/
+.venv/
+env/
+ENV/
+
+# ── Éditeurs ──
+.vscode/
+.idea/
+*.swp
+*~
+
+# ── Fichiers OS ──
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,3 @@
+# Dépendances de SearchArticle
+customtkinter
+requests
