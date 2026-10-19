@@ -1,13 +1,12 @@
-# ── Configuration personnelle (contient votre e-mail) ──
-# Ne JAMAIS commiter ce fichier. Copiez config.example.json pour démarrer.
+# ── Personnal configuration ──
 config.json
 
-# ── PDF téléchargés (peuvent être volumineux) ──
+# ── Downloaded PDFs ──
 pdfs/
-pdfs_telecharges/
+downloaded_pdfs/
 *.pdf
 
-# ── Python : cache et builds ──
+# ── Python: cache and builds ──
 __pycache__/
 *.py[cod]
 *.pyo
@@ -18,19 +17,19 @@ build/
 *.egg-info/
 src/*.egg-info/
 
-# ── Environnements virtuels ──
+# ── Virtual environments ──
 venv/
 .venv/
 env/
 ENV/
 
-# ── Éditeurs ──
+# ── Editors ──
 .vscode/
 .idea/
 *.swp
 *~
 
-# ── Fichiers OS ──
+# ── OS Files ──
 .DS_Store
 Thumbs.db
 desktop.ini
