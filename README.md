@@ -209,25 +209,6 @@ PDFs are named `Author_et_al_Year.pdf`, e.g. `Smith_et_al_2021.pdf`. Characters 
 
 When the same first author publishes several articles in the same year, an `a`/`b`/`c` suffix is added automatically (academic convention): `Smith_et_al_2021a.pdf`, `Smith_et_al_2021b.pdf`… This prevents an article from being wrongly skipped as "already downloaded".
 
-## Zotero workflow: linking downloaded PDFs
-
-Every successful download is recorded in `manifest.json` (placed in the output folder): it maps each DOI to its PDF file. PDFs already present in the folder (resuming a previous batch) are recorded too. A separate companion script, **link_zotero** (provided separately, not part of this repository), reads this manifest and automatically creates **linked attachments** under the matching Zotero entries (DOI matching, case- and prefix-insensitive).
-
-Setup (once):
-1. In Zotero: Preferences → Advanced → Files and Folders → **Linked Attachment Base Directory** → point it to the PDF folder (or its network mount point). Links are stored as relative paths, portable across machines.
-2. Close Zotero.
-
-Usage (with the companion script):
-```bash
-# Dry run (recommended first)
-python link_zotero.py --pdf-dir "D:\Papers" --dry-run
-
-# For real (auto-backup of zotero.sqlite, confirmation asked)
-python link_zotero.py --pdf-dir "D:\Papers" --base-dir "D:\Papers"
-```
-
-Useful options: `--zotero-data-dir` (if your Zotero folder is not `~/Zotero`), `--yes` (no confirmation), `--force` (re-create an existing link), `--no-backup` (not recommended). The script ignores the trash, never attaches under another attachment, and never duplicates a file that is already linked.
-
 ---
 
 ## Troubleshooting (FAQ)
