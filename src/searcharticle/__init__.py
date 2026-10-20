@@ -7,7 +7,7 @@ institutional access (VPN / proxy), Unpaywall and PubMed Central —
 always through legal sources.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Benjamin Le Gac"
 
 __all__ = ["__version__", "__author__"]
