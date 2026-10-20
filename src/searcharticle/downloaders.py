@@ -386,31 +386,31 @@ def _dl_pdf_pmc(
         ``(size_KB, label)`` on success, ``(None, reason)`` otherwise.
     """
 
-    def req_pdf():
-        return make_request(
-            f"https://pmc.ncbi.nlm.nih.gov/articles/{pmcid}/pdf/", timeout=45
-        )
+    email_part = f"&email={state.email}" if state.email else ""
+    candidates = [
+        f"https://europepmc.org/api/getPdf?pmcid={pmcid}{email_part}",
+        f"https://pmc.ncbi.nlm.nih.gov/articles/{pmcid}/pdf/",
+    ]
 
-    r, err = request_with_retry(req_pdf)
+    last_err = "No source worked"
+    for url in candidates:
+        def req_pdf(u=url):
+            return make_request(u, timeout=45)
 
-    if r is None:
+        r, err = request_with_retry(req_pdf)
+        if r is None:
+            last_err = err
+        elif r.status_code != 200:
+            last_err = f"HTTP {r.status_code}"
+        elif not is_pdf(r.content, _PDF_MIN_PUBLISHER):
+            last_err = "Not a PDF"
+        else:
+            if log_cb:
+                log_cb("    ✔ PMC PDF retrieved", "success")
+            return save_pdf(state, r.content, title), label
         if log_cb:
-            log_cb(f"    ✘ PDF download failed: {err}", "warning")
-        return None, err
-
-    if r.status_code != 200:
-        if log_cb:
-            log_cb(f"    ✘ HTTP status {r.status_code}", "warning")
-        return None, f"HTTP {r.status_code}"
-
-    if not is_pdf(r.content, _PDF_MIN_PUBLISHER):
-        if log_cb:
-            log_cb("    ✘ Received content is not a valid PDF", "warning")
-        return None, "Not a PDF"
-
-    if log_cb:
-        log_cb("    ✔ PMC PDF retrieved", "success")
-    return save_pdf(state, r.content, title), label
+            log_cb(f"    ✘ {url[:45]}... : {last_err}", "muted")
+    return None, last_err
 
 
 def dl_pmc_doi(
